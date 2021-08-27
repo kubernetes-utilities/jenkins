@@ -4,7 +4,7 @@ metadata:
   name: jenkins
   namespace: jenkins
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: jenkins-server
@@ -16,7 +16,7 @@ spec:
       securityContext:
             fsGroup: 1000 
             runAsUser: 1000
-      serviceAccountName: jenkins-admin
+      serviceAccountName: jenkins
       containers:
         - name: jenkins
           image: jenkins/jenkins:lts
@@ -29,13 +29,13 @@ spec:
               cpu: "500m"
           ports:
             - name: httpport
-              containerPort: 8090
+              containerPort: 8080
             - name: jnlpport
               containerPort: 50000
           livenessProbe:
             httpGet:
               path: "/login"
-              port: 8090
+              port: 8080
             initialDelaySeconds: 90
             periodSeconds: 10
             timeoutSeconds: 5
@@ -43,15 +43,15 @@ spec:
           readinessProbe:
             httpGet:
               path: "/login"
-              port: 8090
+              port: 8080
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           volumeMounts:
-            - name: jenkins-data
-              mountPath: /var/jenkins_home         
+            - name: jenkins
+              mountPath: /data/jenkins-volume/         
       volumes:
-        - name: jenkins-data
+        - name: jenkins
           persistentVolumeClaim:
               claimName: jenkins-pv-claim
