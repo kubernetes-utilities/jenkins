@@ -18,7 +18,7 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: jenkins-home
+        - name: jenkins
           mountPath: /data/jenkins-volume
       volumes:
       - name: jenkins
