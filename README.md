@@ -1,2 +1,1 @@
-# jenkins
-Jenkins setup
+# Kubernetes Manifests for Jenkins Deployment
