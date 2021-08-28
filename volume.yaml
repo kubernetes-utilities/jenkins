@@ -4,6 +4,7 @@ metadata:
   name: local-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
+
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -21,7 +22,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   local:
-    path: /data/jenkins-volume/
+    path: /mnt/jenkins
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -30,6 +31,7 @@ spec:
           operator: In
           values:
           - hp
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -42,4 +44,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 3Gi
