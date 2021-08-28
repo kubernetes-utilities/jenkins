@@ -6,12 +6,12 @@ metadata:
   annotations:
       prometheus.io/scrape: 'true'
       prometheus.io/path:   /
-      prometheus.io/port:   '8090'
+      prometheus.io/port:   '8080'
 spec:
   selector: 
     app: jenkins-server
   type: NodePort  
   ports:
-    - port: 8090
-      targetPort: 8090
+    - port: 8080
+      targetPort: 8080
       nodePort: 32000
